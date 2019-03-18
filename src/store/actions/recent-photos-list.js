@@ -9,7 +9,7 @@ const getRecentPhotosListAction = fetchResent => {
   return (dispatch, getState) => {
     axios
       .get(
-        `https://api.flickr.com/services/rest/?method=${method}&api_key=${api_key}&per_page=${per_page}&extras=${extras}&format=json&nojsoncallback=1`
+        `https://api.flickr.com/services/rest/?method=${method}&api_key=${api_key}&per_page=${per_page}&extras=${extras}&format=json&nojsoncallback=1&safe_search=1&safe=1`
       )
       .then(res => {
         dispatch({

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Photo from "./photo";
 import getRecentPhotosListAction from "../store/actions/recent-photos-list";
+import Photo from "./photo";
 
 class RecentPhotos extends Component {
   constructor(props) {
@@ -51,7 +51,6 @@ class RecentPhotos extends Component {
               <div className="loader" />
             </div>
           </h1>
-          <h1 />
         </div>
       </div>
     );
