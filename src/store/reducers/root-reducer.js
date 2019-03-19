@@ -5,6 +5,7 @@ const initialState = {
   pages: 0,
   perpage: 12,
   photo: [],
+  result: [],
   status: 200,
   date: "2019-02-22T10:36:05",
   resultsPerPage: 10,
@@ -17,13 +18,21 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "RECENT":
+    case "UPDATE":
       return {
         ...state,
         photo: [...state.photo, ...action.payload.photo],
-        connectionError: 0
+        connectionError: 0,
+        page: action.payload.page
       };
-    case "RECENT_ERROR":
+    case "RESULT":
+      return {
+        ...state,
+        photo: action.payload.photo,
+        connectionError: 0,
+        page: action.payload.page
+      };
+    case "CONNECTION_ERROR":
       return { ...state, connectionError: 1 };
     default:
       return state;

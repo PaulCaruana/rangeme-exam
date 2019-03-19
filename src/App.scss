@@ -97,6 +97,31 @@ body {
   }
 }
 
+.search-bar {
+  padding: 5px;
+  margin: 10px auto;
+  background: $secondary-color;
+  text-align: center;
+  .bar {
+    border: 3px solid $default-color;
+    border-radius: 2rem 0 0 2rem;
+    padding: 6px;
+    margin: 0 auto;
+    background: $secondary-color;
+    text-align: center;
+  }
+  .search {
+    border: 3px solid $default-color;
+    border-radius: 0 2rem 2rem 0;
+    border-left: 0;
+    padding: 6px;
+    max-width: 100px;
+    margin: 0 auto;
+    background: $secondary-color;
+    text-align: center;
+  }
+}
+
 .list {
   .detail {
     height: 80px;
@@ -126,13 +151,14 @@ body {
 
 .photo-tags {
   position: relative;
-  cursor: pointer;
+
   display: block;
   margin: 10px auto 0;
 
   .tag {
     border: 3px solid $default-color;
     border-radius: 2rem;
+    cursor: pointer;
     padding: 5px;
     max-width: 80px;
     margin: 0 auto;

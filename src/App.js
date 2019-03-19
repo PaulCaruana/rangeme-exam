@@ -3,22 +3,26 @@ import { connect } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.scss";
 import Author from "./components/extras/author-profile";
-import Tags from "./components/extras/photos-by-tag";
+import SearchBar from "./components/extras/search-bar";
 import Gallery from "./components/gallery";
 import Recent from "./components/recent";
-import getRecentPhotosListAction from "./store/actions/recent-photos-list";
+import Search from "./components/search";
+import Tags from "./components/tags";
+import searchPhotos from "./store/actions/search-photos-action";
 
 class App extends Component {
   componentDidMount() {
-    this.props.getRecentList();
+    //this.props.getSearchResult();
   }
   render() {
     return (
       <BrowserRouter>
         <div>
+          <Route path="/" component={SearchBar} />
           <Route exact path="/" component={Recent} />
           <Route path="/gallery/:id" component={Gallery} />
           <Route path="/author/:id" component={Author} />
+          <Route path="/search/:id" component={Search} />
           <Route path="/tags/:id" component={Tags} />
         </div>
       </BrowserRouter>
@@ -28,7 +32,7 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getRecentList: data => dispatch(getRecentPhotosListAction(data))
+    getSearchResult: data => dispatch(searchPhotos(data))
   };
 };
 

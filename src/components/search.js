@@ -1,27 +1,46 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import searchPhotos from "../store/actions/search-photos-action";
 import updateResultPage from "../store/actions/update-result-action";
 import Photo from "./photo";
 
-class RecentPhotos extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
-    const getMore = true;
+    const getMoreResult = true;
     window.onscroll = () => {
-      if (!getMore) return;
+      if (!getMoreResult) return;
       if (
         window.innerHeight + document.documentElement.scrollTop ===
         document.documentElement.offsetHeight
       ) {
-        if (!getMore) return;
-        this.props.updatePage();
+        if (!getMoreResult) return;
+        this.props.updatePage({
+          method: 1,
+          text: this.props.tagID,
+          tags: ""
+        });
       }
     };
   }
   componentDidMount() {
-    this.props.getSearchResult();
+    this.props.getSearchResult({
+      method: 1,
+      text: this.props.tagID,
+      tags: ""
+    });
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.id !== this.props.tagID) {
+      this.props.getSearchResult({
+        method: 1,
+        text: nextProps.match.params.id,
+        tags: ""
+      });
+    }
+  }
+
   render() {
     //handle connection error
     const connectionError = this.props.connectionError
@@ -29,10 +48,9 @@ class RecentPhotos extends Component {
       : this.props.loadingMessage;
 
     //handle photos list
-    const result = this.props.result || [];
-
-    const recentPhotoList = result.length ? (
-      result.map(photo => {
+    const recent = this.props.recent || [];
+    const recentPhotoList = recent.length ? (
+      recent.map(photo => {
         return (
           <div key={photo.id} className="col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <Photo photo={photo} coverStyle="list" />
@@ -44,8 +62,9 @@ class RecentPhotos extends Component {
     );
     return (
       <div className="container">
-        <h1>Recent Photos</h1>
-
+        <h1>
+          <Link to="/">Home </Link> > Search result
+        </h1>
         <div>
           <div className="row">{recentPhotoList}</div>
         </div>
@@ -62,22 +81,22 @@ class RecentPhotos extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    result: state.photo,
+    tagID: ownProps.match.params.id,
+    recent: state.photo,
     connectionError: state.connectionError,
     errorMessage: state.errorMessage,
-    loadingMessage: state.loadingMessage,
-    page: state.page
+    loadingMessage: state.loadingMessage
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    updatePage: () => dispatch(updateResultPage()),
-    getSearchResult: () => dispatch(searchPhotos())
+    getSearchResult: data => dispatch(searchPhotos(data)),
+    updatePage: data => dispatch(updateResultPage(data))
   };
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RecentPhotos);
+)(Search);
