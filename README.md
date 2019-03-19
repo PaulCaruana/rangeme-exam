@@ -35,7 +35,7 @@ If you feel like you want to go the extra mile, here is a list of potential addi
 
 - Allow the page to have an infinite scroll (loading in more images as you scroll).[check]
 
-> Done: It fetches infinite amount of recent photos when user scrolls down. However, at the moment, it does not track for duplicated content
+> Done: It fetches infinite amount of recent photos when user scrolls down and works perfect with search result
 
 - A search functionality based on tags, or possibly the title of the photo.
 
@@ -58,9 +58,4 @@ If you feel like you want to go the extra mile, here is a list of potential addi
 
 why I picked React to put this build together?
 
-```sh
-
 > The whole project involves mainly user interface, fetching data from flickr api and displaying it on the dom, no major functions or js applications required. For that, React is really good at breaking down big user interfaces into smaller, organised and reusable components specially for single page application like this. Plus react UI components are really quick to debug.
-
-
-```
