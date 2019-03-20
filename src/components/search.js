@@ -11,7 +11,8 @@ class Search extends Component {
     search: {
       method: 1,
       text: this.props.tagID,
-      tags: ""
+      tags: "",
+      page: this.props.page
     }
   };
 
@@ -47,9 +48,10 @@ class Search extends Component {
     this.props.getSearchResult(this.state.search);
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log("prevProps ", prevProps);
-    console.log("prevState ", prevState);
-    if (this.state.updating) this.resetUpdating();
+    if (prevProps.page !== this.props.page) {
+      console.log("resetting");
+      this.resetUpdating();
+    }
   }
 
   componentWillReceiveProps(nextProps) {

@@ -6,7 +6,13 @@ import Photo from "./extras/photo";
 
 class RecentPhotos extends Component {
   state = {
-    updating: 0
+    updating: 0,
+    search: {
+      method: 1,
+      text: "",
+      tags: "",
+      page: this.props.page
+    }
   };
 
   handleOnScroll() {
@@ -26,7 +32,7 @@ class RecentPhotos extends Component {
     }
   }
 
-  update() {
+  resetUpdating() {
     this.setState({ ...this.state, updating: 0 });
   }
 
@@ -41,7 +47,9 @@ class RecentPhotos extends Component {
     this.props.getSearchResult();
   }
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.updating) this.update();
+    if (prevProps.page !== this.props.page) {
+      this.resetUpdating();
+    }
   }
 
   render() {

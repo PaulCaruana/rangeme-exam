@@ -11,7 +11,8 @@ class Tags extends Component {
     search: {
       method: 1,
       text: "",
-      tags: this.props.tagID
+      tags: this.props.tagID,
+      page: this.props.page
     }
   };
 
@@ -32,7 +33,7 @@ class Tags extends Component {
     }
   }
 
-  update() {
+  resetUpdating() {
     this.setState({ ...this.state, updating: 0 });
   }
 
@@ -47,7 +48,10 @@ class Tags extends Component {
     this.props.getSearchResult(this.state.search);
   }
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.updating) this.update();
+    if (prevProps.page !== this.props.page) {
+      console.log("resetting");
+      this.resetUpdating();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -110,7 +114,8 @@ const mapStateToProps = (state, ownProps) => {
     recent: state.photo,
     connectionError: state.connectionError,
     errorMessage: state.errorMessage,
-    loadingMessage: state.loadingMessage
+    loadingMessage: state.loadingMessage,
+    page: state.page
   };
 };
 const mapDispatchToProps = dispatch => {

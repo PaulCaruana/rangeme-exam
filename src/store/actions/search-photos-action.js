@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const searchPhotos = (search = { method: 0, text: "", tags: "" }) => {
+const searchPhotos = (search = { method: 0, text: "", tags: "", page: 1 }) => {
   const api_key = "f5ff73b3b7aca7f78ffb4ae8c2a39ccb";
   const methods = ["flickr.photos.getRecent", "flickr.photos.search"];
   const method = methods[search.method] || methods[0];
