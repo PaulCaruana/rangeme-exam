@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import DropDownMenu from "./extras/tags-drop-down-menu";
+import DropDownMenu from "./tags-drop-down-menu";
 
 const Photo = props => {
   const photo = props.photo;

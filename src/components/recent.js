@@ -2,26 +2,48 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import searchPhotos from "../store/actions/search-photos-action";
 import updateResultPage from "../store/actions/update-result-action";
-import Photo from "./photo";
+import Photo from "./extras/photo";
 
 class RecentPhotos extends Component {
-  constructor(props) {
-    super(props);
-    const getMore = true;
-    window.onscroll = () => {
-      if (!getMore) return;
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        if (!getMore) return;
-        this.props.updatePage();
-      }
-    };
+  state = {
+    updating: 0
+  };
+
+  handleOnScroll() {
+    if (this.state.updating === 1) return;
+    let scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+    let scrollHeight =
+      (document.documentElement && document.documentElement.scrollHeight) ||
+      document.body.scrollHeight;
+    let clientHeight =
+      document.documentElement.clientHeight || window.innerHeight;
+    let scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+    if (scrolledToBottom) {
+      this.setState({ ...this.state, updating: 1 });
+      this.props.updatePage();
+    }
   }
+
+  update() {
+    this.setState({ ...this.state, updating: 0 });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleOnScroll);
+  }
+
   componentDidMount() {
+    window.onscroll = () => {
+      this.handleOnScroll();
+    };
     this.props.getSearchResult();
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.updating) this.update();
+  }
+
   render() {
     //handle connection error
     const connectionError = this.props.connectionError

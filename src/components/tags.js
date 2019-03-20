@@ -3,37 +3,64 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import searchPhotos from "../store/actions/search-photos-action";
 import updateResultPage from "../store/actions/update-result-action";
-import Photo from "./photo";
+import Photo from "./extras/photo";
 
 class Tags extends Component {
-  constructor(props) {
-    super(props);
-    const getMoreResult = true;
-    window.onscroll = () => {
-      if (!getMoreResult) return;
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        if (!getMoreResult) return;
-        this.props.getSearchResult({
-          method: 1,
-          text: "",
-          tags: this.props.tagID
-        });
-      }
-    };
+  state = {
+    updating: 0,
+    search: {
+      method: 1,
+      text: "",
+      tags: this.props.tagID
+    }
+  };
+
+  handleOnScroll() {
+    if (this.state.updating === 1) return;
+    let scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+    let scrollHeight =
+      (document.documentElement && document.documentElement.scrollHeight) ||
+      document.body.scrollHeight;
+    let clientHeight =
+      document.documentElement.clientHeight || window.innerHeight;
+    let scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+    if (scrolledToBottom) {
+      this.setState({ ...this.state, updating: 1 });
+      this.props.updatePage(this.state.search);
+    }
   }
+
+  update() {
+    this.setState({ ...this.state, updating: 0 });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleOnScroll);
+  }
+
   componentDidMount() {
-    this.props.getSearchResult({ method: 1, text: "", tags: this.props.tagID });
+    window.onscroll = () => {
+      this.handleOnScroll();
+    };
+    this.props.getSearchResult(this.state.search);
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.updating) this.update();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.id !== this.props.tagID) {
-      this.props.getSearchResult({
-        method: 1,
-        text: "",
-        tags: nextProps.match.params.id
+      this.setState({
+        ...this.state,
+        search: {
+          method: 1,
+          text: "",
+          tags: nextProps.match.params.id
+        }
       });
+      this.props.getSearchResult(this.state.search);
     }
   }
 

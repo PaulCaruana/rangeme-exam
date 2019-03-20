@@ -98,6 +98,7 @@ body {
 }
 
 .search-bar {
+  white-space: nowrap;
   padding: 5px;
   margin: 10px auto;
   background: $secondary-color;
@@ -228,5 +229,14 @@ body {
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 560px) {
+  .search-bar {
+    .bar {
+      width: 80%;
+      width: calc(100% - 100px);
+    }
   }
 }

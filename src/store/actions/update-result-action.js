@@ -14,6 +14,7 @@ const updateResultPage = (
 
   return (dispatch, getState) => {
     let { page } = getState("page");
+    console.log("---updating");
     axios
       .get(
         `https://api.flickr.com/services/rest/?method=${method}&api_key=${api_key}&sort=${sort}&page=${++page}&per_page=${per_page}&extras=${extras}&text=${text}&tags=${tags}&format=json&nojsoncallback=1&safe_search=3&safe=3`
