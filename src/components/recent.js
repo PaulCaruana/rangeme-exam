@@ -8,7 +8,7 @@ class RecentPhotos extends Component {
   state = {
     updating: 0,
     search: {
-      method: 1,
+      method: 0,
       text: "",
       tags: "",
       page: this.props.page

@@ -26,7 +26,7 @@ const rootReducer = (state = initialState, action) => {
       };
     case "RESULT":
       return {
-        ...state,
+        ...initialState,
         photo: action.payload.photo,
         connectionError: 0,
         page: action.payload.page,

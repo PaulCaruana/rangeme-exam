@@ -12,7 +12,7 @@ class Search extends Component {
       method: 1,
       text: this.props.tagID,
       tags: "",
-      page: this.props.page
+      page: this.props.page || 1
     }
   };
 
@@ -49,7 +49,6 @@ class Search extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.page !== this.props.page) {
-      console.log("resetting");
       this.resetUpdating();
     }
   }
@@ -61,7 +60,8 @@ class Search extends Component {
         search: {
           method: 1,
           text: nextProps.match.params.id,
-          tags: ""
+          tags: "",
+          page: 1
         }
       });
       this.props.getSearchResult(this.state.search);

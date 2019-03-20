@@ -49,7 +49,6 @@ class Tags extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.page !== this.props.page) {
-      console.log("resetting");
       this.resetUpdating();
     }
   }
@@ -60,8 +59,9 @@ class Tags extends Component {
         ...this.state,
         search: {
           method: 1,
-          text: "",
-          tags: nextProps.match.params.id
+          text: nextProps.match.params.id,
+          tags: "",
+          page: 1
         }
       });
       this.props.getSearchResult(this.state.search);
