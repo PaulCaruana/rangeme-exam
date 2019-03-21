@@ -42,6 +42,12 @@ class Search extends Component {
   }
 
   componentDidMount() {
+    this.props.getSearchResult({
+      method: 1,
+      text: this.props.tagID,
+      tags: "",
+      page: 1
+    });
     window.onscroll = () => {
       this.handleOnScroll();
     };
@@ -64,7 +70,12 @@ class Search extends Component {
           page: 1
         }
       });
-      this.props.getSearchResult(this.state.search);
+      this.props.getSearchResult({
+        method: 1,
+        text: nextProps.match.params.id,
+        tags: "",
+        page: 1
+      });
     }
   }
 
