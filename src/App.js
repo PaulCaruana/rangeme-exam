@@ -8,12 +8,12 @@ import Gallery from "./components/gallery";
 import Recent from "./components/recent";
 import Search from "./components/search";
 import Tags from "./components/tags";
-import searchPhotos from "./store/actions/search-photos-action";
 
 class App extends Component {
   componentDidMount() {
     //this.props.getSearchResult();
   }
+
   render() {
     return (
       <BrowserRouter>
@@ -30,13 +30,4 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getSearchResult: data => dispatch(searchPhotos(data))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(App);
+export default App;
