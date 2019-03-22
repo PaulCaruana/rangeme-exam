@@ -1,8 +1,10 @@
+//@ts-check
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import searchPhotos from "../store/actions/search-photos-action";
 import updateResultPage from "../store/actions/update-result-action";
-import Photo from "./extras/photo";
+import { getUnique, handleOnScroll } from "./utilities/functions";
+import Photo from "./utilities/photo";
 
 class RecentPhotos extends Component {
   state = {
@@ -11,47 +13,50 @@ class RecentPhotos extends Component {
       method: 0,
       text: "",
       tags: "",
-      page: this.props.page
+      page: this.props.page || 1
     }
   };
 
-  handleOnScroll() {
-    if (this.state.updating === 1) return;
-    let scrollTop =
-      (document.documentElement && document.documentElement.scrollTop) ||
-      document.body.scrollTop;
-    let scrollHeight =
-      (document.documentElement && document.documentElement.scrollHeight) ||
-      document.body.scrollHeight;
-    let clientHeight =
-      document.documentElement.clientHeight || window.innerHeight;
-    let scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-    if (scrolledToBottom) {
+  infiniteScroll() {
+    if (handleOnScroll()) {
       this.setState({ ...this.state, updating: 1 });
-      this.props.updatePage();
+      this.props.updatePage(this.state.search);
     }
   }
 
-  resetUpdating() {
+  resetInfiniteScroll() {
     this.setState({ ...this.state, updating: 0 });
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleOnScroll);
+    window.removeEventListener("scroll", () => {});
   }
 
   componentDidMount() {
+    this.props.getSearchResult({
+      method: 0,
+      text: "",
+      tags: "",
+      page: 1
+    });
     window.onscroll = () => {
-      this.handleOnScroll();
+      if (!this.state.updating) return this.infiniteScroll();
     };
     this.props.getSearchResult();
+    window.scrollTo(0, 0);
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.page !== this.props.page) {
-      this.resetUpdating();
+      this.resetInfiniteScroll();
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.id !== this.props.pageID) {
+      this.props.getSearchResult();
+    }
+  }
   render() {
     //handle connection error
     const connectionError = this.props.connectionError
@@ -74,7 +79,7 @@ class RecentPhotos extends Component {
     );
     return (
       <div className="container">
-        <h1>Recent Photos</h1>
+        <h1>Recent photos</h1>
 
         <div>
           <div className="row">{recentPhotoList}</div>
@@ -94,7 +99,7 @@ class RecentPhotos extends Component {
 
 const mapStateToProps = state => {
   return {
-    result: state.photo,
+    result: getUnique(state.photo, "id"),
     connectionError: state.connectionError,
     errorMessage: state.errorMessage,
     loadingMessage: state.loadingMessage,

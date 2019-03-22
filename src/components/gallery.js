@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import Photo from "./extras/photo";
+import Photo from "./utilities/photo";
 
 class Gallery extends Component {
   render() {

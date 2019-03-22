@@ -50,7 +50,7 @@ If you feel like you want to go the extra mile, here is a list of potential addi
 ```sh
 > Search bar to search photos,
 > Search by tag,
-> Redux for feature upgrade,
+> Redux for future upgrade,
 > Single photo page,
 > Author profile page(currently blank)
 > more...

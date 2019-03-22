@@ -1,9 +1,12 @@
+//@ts-check
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import searchPhotos from "../store/actions/search-photos-action";
 import updateResultPage from "../store/actions/update-result-action";
-import Photo from "./extras/photo";
+import { getUnique, handleOnScroll } from "./utilities/functions";
+import Photo from "./utilities/photo";
 
 class Tags extends Component {
   state = {
@@ -11,63 +14,70 @@ class Tags extends Component {
     search: {
       method: 1,
       text: "",
-      tags: this.props.tagID,
+      tags: this.props.pageID,
       page: this.props.page
     }
   };
 
-  handleOnScroll() {
-    if (this.state.updating === 1) return;
-    let scrollTop =
-      (document.documentElement && document.documentElement.scrollTop) ||
-      document.body.scrollTop;
-    let scrollHeight =
-      (document.documentElement && document.documentElement.scrollHeight) ||
-      document.body.scrollHeight;
-    let clientHeight =
-      document.documentElement.clientHeight || window.innerHeight;
-    let scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-    if (scrolledToBottom) {
+  infiniteScroll() {
+    if (handleOnScroll()) {
       this.setState({ ...this.state, updating: 1 });
       this.props.updatePage(this.state.search);
     }
   }
 
-  resetUpdating() {
+  resetInfiniteScroll() {
     this.setState({ ...this.state, updating: 0 });
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleOnScroll);
+    window.removeEventListener("scroll", () => {});
   }
 
   componentDidMount() {
+    this.props.getSearchResult({
+      method: 1,
+      text: "",
+      tags: this.props.pageID,
+      page: 1
+    });
     window.onscroll = () => {
-      this.handleOnScroll();
+      if (!this.state.updating) return this.infiniteScroll();
     };
     this.props.getSearchResult(this.state.search);
+    window.scrollTo(0, 0);
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.page !== this.props.page) {
-      this.resetUpdating();
+      this.resetInfiniteScroll();
+    }
+
+    //scroll the page to the top when tag is changed
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      window.scrollTo(0, 0);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.id !== this.props.tagID) {
+    if (nextProps.match.params.id !== this.props.pageID) {
       this.setState({
         ...this.state,
         search: {
           method: 1,
-          text: nextProps.match.params.id,
-          tags: "",
+          text: "",
+          tags: nextProps.match.params.id,
           page: 1
         }
       });
-      this.props.getSearchResult(this.state.search);
+      this.props.getSearchResult({
+        method: 1,
+        text: "",
+        tags: nextProps.match.params.id,
+        page: 1
+      });
     }
   }
-
   render() {
     //handle connection error
     const connectionError = this.props.connectionError
@@ -75,7 +85,7 @@ class Tags extends Component {
       : this.props.loadingMessage;
 
     //handle photos list
-    const recent = this.props.recent || [];
+    const recent = this.props.result || [];
     const recentPhotoList = recent.length ? (
       recent.map(photo => {
         return (
@@ -90,7 +100,7 @@ class Tags extends Component {
     return (
       <div className="container">
         <h1>
-          <Link to="/">Home </Link> > Search by tag
+          <Link to="/">Home </Link> > Related by tag : {this.state.search.tags}
         </h1>
         <div>
           <div className="row">{recentPhotoList}</div>
@@ -110,12 +120,12 @@ class Tags extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    tagID: ownProps.match.params.id,
-    recent: state.photo,
+    pageID: ownProps.match.params.id,
+    result: getUnique(state.photo, "id"),
+    page: state.page,
     connectionError: state.connectionError,
     errorMessage: state.errorMessage,
-    loadingMessage: state.loadingMessage,
-    page: state.page
+    loadingMessage: state.loadingMessage
   };
 };
 const mapDispatchToProps = dispatch => {

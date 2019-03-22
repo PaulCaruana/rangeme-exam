@@ -11,11 +11,14 @@ const updateResultPage = (
   const sort = "relevance";
   const text = search.text || "";
   const tags = search.tags || "";
+  search.page = search.page + 1 || 1;
 
   return (dispatch, getState) => {
     axios
       .get(
-        `https://api.flickr.com/services/rest/?method=${method}&api_key=${api_key}&sort=${sort}&page=${++search.page}&per_page=${per_page}&extras=${extras}&text=${text}&tags=${tags}&format=json&nojsoncallback=1&safe_search=3&safe=3`
+        `https://api.flickr.com/services/rest/?method=${method}&api_key=${api_key}&sort=${sort}&page=${
+          search.page
+        }&per_page=${per_page}&extras=${extras}&text=${text}&tags=${tags}&format=json&nojsoncallback=1&safe_search=3&safe=3`
       )
       .then(res => {
         dispatch({
