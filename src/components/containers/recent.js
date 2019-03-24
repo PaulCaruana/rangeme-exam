@@ -1,10 +1,12 @@
 //@ts-check
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import searchPhotos from "../store/actions/search-photos-action";
-import updateResultPage from "../store/actions/update-result-action";
-import { getUnique, handleOnScroll } from "./utilities/functions";
-import Photo from "./utilities/photo";
+import searchPhotos from "../../store/actions/search-photos-action";
+import updateResultPage from "../../store/actions/update-result-action";
+import BreadCrumbs from "../presentations/bread-crumbs";
+import Loading from "../presentations/loading-bar";
+import Photo from "../presentations/photo";
+import { handleOnScroll } from "../utilities/functions";
 
 class RecentPhotos extends Component {
   state = {
@@ -30,19 +32,14 @@ class RecentPhotos extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("scroll", () => {});
+    this.setState({ ...this.state, updating: 1 });
   }
 
   componentDidMount() {
-    this.props.getSearchResult({
-      method: 0,
-      text: "",
-      tags: "",
-      page: 1
-    });
+    this.props.getSearchResult();
     window.onscroll = () => {
       if (!this.state.updating) return this.infiniteScroll();
     };
-    this.props.getSearchResult();
     window.scrollTo(0, 0);
   }
 
@@ -69,7 +66,10 @@ class RecentPhotos extends Component {
     const recentPhotoList = result.length ? (
       result.map(photo => {
         return (
-          <div key={photo.id} className="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+          <div
+            key={photo.id}
+            className="col-xl-3 col-lg-4 col-md-6 col-sm-12 transition"
+          >
             <Photo photo={photo} coverStyle="list" />
           </div>
         );
@@ -79,19 +79,9 @@ class RecentPhotos extends Component {
     );
     return (
       <div className="container">
-        <h1>Recent photos</h1>
-
-        <div>
-          <div className="row">{recentPhotoList}</div>
-        </div>
-        <div className="loading">
-          <h1>
-            <div>
-              Loading...
-              <div className="loader" />
-            </div>
-          </h1>
-        </div>
+        <BreadCrumbs message="Recent photos" />
+        <div className="row">{recentPhotoList}</div>
+        <Loading />
       </div>
     );
   }
@@ -99,7 +89,7 @@ class RecentPhotos extends Component {
 
 const mapStateToProps = state => {
   return {
-    result: getUnique(state.photo, "id"),
+    result: state.photo,
     connectionError: state.connectionError,
     errorMessage: state.errorMessage,
     loadingMessage: state.loadingMessage,

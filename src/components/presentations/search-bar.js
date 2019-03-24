@@ -18,7 +18,7 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div className="search-bar">
+      <div className="search-bar transition">
         <form onSubmit={e => e.preventDefault()}>
           <input
             type="text"
@@ -26,7 +26,7 @@ class SearchBar extends Component {
             placeholder="Search photos"
             onChange={this.handleSearch.bind(this)}
             value={this.state.searchParam}
-            className="bar"
+            className="bar transition"
           />
           <button
             className="search"

@@ -2,11 +2,12 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import searchPhotos from "../store/actions/search-photos-action";
-import updateResultPage from "../store/actions/update-result-action";
-import { getUnique, handleOnScroll } from "./utilities/functions";
-import Photo from "./utilities/photo";
+import searchPhotos from "../../store/actions/search-photos-action";
+import updateResultPage from "../../store/actions/update-result-action";
+import BreadCrumbs from "../presentations/bread-crumbs";
+import Loading from "../presentations/loading-bar";
+import Photo from "../presentations/photo";
+import { handleOnScroll } from "../utilities/functions";
 
 class Tags extends Component {
   state = {
@@ -41,10 +42,11 @@ class Tags extends Component {
       tags: this.props.pageID,
       page: 1
     });
+
     window.onscroll = () => {
       if (!this.state.updating) return this.infiniteScroll();
     };
-    this.props.getSearchResult(this.state.search);
+
     window.scrollTo(0, 0);
   }
 
@@ -99,20 +101,9 @@ class Tags extends Component {
     );
     return (
       <div className="container">
-        <h1>
-          <Link to="/">Home </Link> > Related by tag : {this.state.search.tags}
-        </h1>
-        <div>
-          <div className="row">{recentPhotoList}</div>
-        </div>
-        <div className="loading">
-          <h1>
-            <div>
-              Loading...
-              <div className="loader" />
-            </div>
-          </h1>
-        </div>
+        <BreadCrumbs message={"Related by tag : " + this.state.search.tags} />
+        <div className="row">{recentPhotoList}</div>
+        <Loading />
       </div>
     );
   }
@@ -121,7 +112,7 @@ class Tags extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     pageID: ownProps.match.params.id,
-    result: getUnique(state.photo, "id"),
+    result: state.photo,
     page: state.page,
     connectionError: state.connectionError,
     errorMessage: state.errorMessage,

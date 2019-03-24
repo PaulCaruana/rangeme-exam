@@ -2,16 +2,19 @@
 
 /**
  *
- * @param {Array} arr
- * @param {string} index
+ * @param {array} arr
  */
-export const getUnique = (arr, index) => {
-  const unique = arr
-    .map(e => e[index])
-    .map((e, i, final) => final.indexOf(e) === i && i)
-    .filter(e => arr[e])
-    .map(e => arr[e]);
-  return [...unique];
+
+export const getUnique = arr => {
+  const photos = new Set();
+  const unique = [];
+  for (let obj of arr) {
+    if (!photos.has(obj.id)) {
+      photos.add(obj.id);
+      unique.push({ ...obj });
+    }
+  }
+  return unique;
 };
 
 export const handleOnScroll = () => {
@@ -23,9 +26,6 @@ export const handleOnScroll = () => {
     document.body.scrollHeight;
   const clientHeight =
     document.documentElement.clientHeight || window.innerHeight;
-  if (Math.ceil(scrollTop + clientHeight) >= scrollHeight - 356) {
-    return true;
-  } else {
-    return false;
-  }
+  if (Math.ceil(scrollTop + clientHeight) >= scrollHeight - 356) return true;
+  return false;
 };
