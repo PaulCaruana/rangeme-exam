@@ -11,7 +11,7 @@ const Photo = props => {
         <Link to={"/gallery/" + photo.id}>
           <img src={src} alt="loading..." className="featured-image" />
         </Link>
-        <div className="photo-views">{photo.views} views</div>
+        <div className="photo-views shadow">{photo.views} views</div>
       </div>
       <div className="photo-detail">
         <div className="title">

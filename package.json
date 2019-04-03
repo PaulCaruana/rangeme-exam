@@ -1,14 +1,14 @@
 {
-  "name": "flicker-api-react",
+  "name": "flickr-react",
   "version": "0.1.0",
   "description": "React photo gallery app with Flickr API",
   "author": "Darik Hart",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/neuralline/flicker-api-react"
+    "url": "https://github.com/neuralline/flickr-react"
   },
-  "homepage": "https://flicker-api-react.netlify.com/",
+  "homepage": "https://flickr-react.netlify.com/",
   "dependencies": {
     "axios": "^0.18.0",
     "node-sass": "^4.11.0",

@@ -6,7 +6,6 @@ import AvatarImage from "../icons/profile-icon.svg";
 
 class Author extends Component {
   componentDidMount() {
-    console.log(this.props.pageID);
     this.props.getProfile2(this.props.pageID);
   }
   render() {
@@ -21,8 +20,10 @@ class Author extends Component {
                   <img src={AvatarImage} alt="Avatar" className="avatar-icon" />
                   {this.props.profile.first_name} {this.props.profile.last_name}
                 </h3>
-                <p>{this.props.profile.profile_description} ...</p>
+                <p>Bio : {this.props.profile.profile_description} ...</p>
+                <p>From : {this.props.profile.country} ...</p>
                 <p>Instagram : {this.props.profile.instagram} ...</p>
+                <p>User id : {this.props.pageID}</p>
               </div>
             </div>
           </div>
@@ -35,7 +36,7 @@ class Author extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     pageID: ownProps.match.params.id,
-    profile: state.profile,
+    profile: state.profile || {},
     connectionError: state.connectionError,
     errorMessage: state.errorMessage,
     loadingMessage: state.loadingMessage

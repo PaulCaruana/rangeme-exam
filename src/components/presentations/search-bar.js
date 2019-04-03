@@ -23,6 +23,7 @@ class SearchBar extends Component {
           <input
             type="text"
             size="45"
+            autofocus
             placeholder="Search photos"
             onChange={this.handleSearch.bind(this)}
             value={this.state.searchParam}
