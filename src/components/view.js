@@ -1,7 +1,7 @@
 import React from "react";
-import BreadCrumbs from "../presentations/bread-crumbs";
-import Photo from "../presentations/photo";
-import useGlobalState from "../data/globalState";
+import BreadCrumbs from "./bread-crumbs";
+import Photo from "./photo";
+import useGlobalState from "./data/globalState";
 
 const View = props => {
     const [images] = useGlobalState('images');
