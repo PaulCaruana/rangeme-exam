@@ -12,6 +12,7 @@ Also has the ability to view an image.
 - Clear search test box
 - Add jest tests
 - Tidy up search page using useFetch
+- Show when no records are found message
  
 ## Prerequisites
 
