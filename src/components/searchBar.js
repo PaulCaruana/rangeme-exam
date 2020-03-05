@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import searchImages from "./data/searchImages";
-import useDebounce from './utilities/useDebounce';
+import searchImages from "../data/searchImages";
+import useDebounce from '../utilities/useDebounce';
 import ImageList from "./ImageList";
-import useGlobalState from "./data/globalState";
+import useGlobalState from "../data/globalState";
 
 
 
