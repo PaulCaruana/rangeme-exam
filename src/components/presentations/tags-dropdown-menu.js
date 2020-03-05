@@ -10,7 +10,7 @@ const DropDownMenu = props => {
         {tags[0] !== "" ? (
           tags.map(tag => (
             <li key={tag}>
-              <Link to={"/tags/" + tag}>{tag}</Link>
+              {tag}
             </li>
           ))
         ) : (

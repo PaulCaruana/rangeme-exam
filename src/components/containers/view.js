@@ -1,33 +1,30 @@
 import React from "react";
-import { connect } from "react-redux";
 import BreadCrumbs from "../presentations/bread-crumbs";
 import Photo from "../presentations/photo";
+import useGlobalState from "../data/globalState";
 
-const Gallery = props => {
-  return (
-    <div className="container">
-      <BreadCrumbs message="Photo info" />
-      <div>
-        <div className="row">
-          <div className="col-12 ">
-            <Photo
-              key={props.photo.id}
-              photo={props.photo}
-              coverStyle="gallery"
-            />
-          </div>
+const View = props => {
+    const [images] = useGlobalState('images');
+    const id = props.match.params.id;
+    const image = images[id];
+    image.id = id;
+    return (
+        <div className="container">
+            <BreadCrumbs message="Selected image" />
+            <div>
+                <div  className="row">
+                    <div className="col-4">
+                        <Photo
+                            id={id}
+                            photo={image}
+                            coverStyle="gallery"
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  let id = ownProps.match.params.id;
-  return {
-    pageID: id,
-    photo: state.photo.find(photo => photo.id === id)
-  };
-};
+export default View
 
-export default connect(mapStateToProps)(Gallery);

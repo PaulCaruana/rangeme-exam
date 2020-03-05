@@ -76,14 +76,14 @@ body {
 .photo {
   position: relative;
   padding: 20px;
-  border: $default-color 1px solid;
+  xborder: $default-color 1px solid;
   margin: 20px auto;
   background: rgba(0, 0, 0, 0.02);
   .featured {
     position: relative;
     display: block;
     overflow: hidden;
-    border: $default-color 1px solid;
+    xborder: $default-color 1px solid;
     min-height: 170.2px;
   }
   .photo-detail {
@@ -198,13 +198,14 @@ body {
   margin: 10px auto 0;
 
   .tag {
-    border: 3px solid $default-color;
-    border-radius: 2rem;
+    xborder: 1px solid $default-color;
+    border-radius: 1rem;
     cursor: pointer;
     padding: 5px;
     max-width: 80px;
     margin: 0 auto;
-    background: $secondary-color;
+    background: deeppink;
+    color: white;
     text-align: center;
   }
   li {
@@ -262,6 +263,27 @@ body {
   border-radius: 90%;
   width: 45px;
   height: 45px;
+}
+.ui-input {
+  -webkit-box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.1);
+  display: block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 50%;
+  margin: 10px auto;
+  border: none;
+  font-size: 2rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+.ui-input::-webkit-input-placeholder {
+  color: #CDCDCD;
+}
+.ui-input:focus {
+  outline: none;
 }
 
 @keyframes loader-hart {

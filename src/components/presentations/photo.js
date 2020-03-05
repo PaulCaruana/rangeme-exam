@@ -3,30 +3,23 @@ import { Link } from "react-router-dom";
 import DropDownMenu from "./tags-dropdown-menu";
 
 const Photo = props => {
+  const id = props.id;
   const photo = props.photo;
-  const src = props.coverStyle === "list" ? photo.url_q : photo.url_l;
+  const src = props.coverStyle === "list" ? photo.media.m : photo.media.m;
   return (
     <div className={"photo transition shadow " + props.coverStyle}>
       <div className="featured transition shadow">
-        <Link to={"/gallery/" + photo.id}>
+        <Link to={"/gallery/" + id}>
           <img src={src} alt="loading..." className="featured-image" />
         </Link>
-        <div className="photo-views shadow">{photo.views} views</div>
       </div>
       <div className="photo-detail">
         <div className="title">
-          <h4>
-            <Link to={"/gallery/" + photo.id} className="photo-title">
-              {photo.title}
-            </Link>
-            <span className="photo-by">by</span>
-            <Link to={"/author/" + photo.owner} className="photo-description">
-              {photo.ownername}
-            </Link>
-          </h4>
+          <p>
+            <div>{photo.title} <br/>&nbsp;&nbsp;<i>by:</i> {photo.author} <br/><i>&nbsp;&nbsp;taken on:</i> {new Date(photo.published).toLocaleString()}</div>
+          </p>
           <br />
         </div>
-        <div className="detail">{photo.description._content}...</div>
         <div />
         <div className="tags">
           <DropDownMenu tags={photo.tags} />
