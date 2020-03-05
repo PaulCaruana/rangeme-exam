@@ -6,8 +6,8 @@ const ImageList = props => {
         return props.items.map( (item, index) => {return <ImageItem id={index} key={item.date_taken + item.title} item = {item} /> });
     }
 
-    if(props.items && props.items != null){
-        return <div class="row">{renderList(props)}</div>
+    if(props.items && props.items.length > 0 && props.items != null){
+        return <div className="row">{renderList(props)}</div>
     }
 
     return <div></div>;

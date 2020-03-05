@@ -15,9 +15,7 @@ const Photo = props => {
       </div>
       <div className="photo-detail">
         <div className="title">
-          <p>
             <div>{photo.title} <br/>&nbsp;&nbsp;<i>by:</i> {photo.author} <br/><i>&nbsp;&nbsp;taken on:</i> {new Date(photo.published).toLocaleString()}</div>
-          </p>
           <br />
         </div>
         <div />
