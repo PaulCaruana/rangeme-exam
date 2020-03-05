@@ -1,26 +1,22 @@
 {
-  "name": "flickr-react",
+  "name": "rangeme-flickr-serch",
   "version": "0.1.0",
   "description": "React photo gallery app with Flickr API",
-  "author": "Darik Hart",
+  "author": "Paul Caruana",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/neuralline/flickr-react"
+    "url": "https://github.com/PaulCaruana/rangeme-exam.git"
   },
   "homepage": "https://flickr-react.netlify.com/",
   "dependencies": {
-    "axios": "latest",
     "fetch-jsonp": "latest",
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-hooks-global-state": "^1.0.0",
-    "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "react-scripts": "3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
