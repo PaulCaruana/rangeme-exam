@@ -13,6 +13,7 @@ Also has the ability to view an image.
 - Add jest tests
 - Tidy up search page using useFetch
 - Show when no records are found message
+- Redo UI with material-ui widgets
  
 ## Prerequisites
 
