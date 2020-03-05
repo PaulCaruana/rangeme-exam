@@ -12,7 +12,7 @@
     "npm": "6.13.4",
     "node": "13.5.0"
   },
-  "homepage": "https://flickr-react.netlify.com/",
+  "homepage": "https://vast-mesa-72810.herokuapp.com/",
   "dependencies": {
     "fetch-jsonp": "latest",
     "node-sass": "^4.11.0",
