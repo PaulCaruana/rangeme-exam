@@ -9,7 +9,7 @@ const Photo = props => {
   return (
     <div className={"photo transition shadow " + props.coverStyle}>
       <div className="featured transition shadow">
-        <Link to={"/gallery/" + id}>
+        <Link to={"/view/" + id}>
           <img src={src} alt="loading..." className="featured-image" />
         </Link>
       </div>

@@ -76,14 +76,12 @@ body {
 .photo {
   position: relative;
   padding: 20px;
-  xborder: $default-color 1px solid;
   margin: 20px auto;
   background: rgba(0, 0, 0, 0.02);
   .featured {
     position: relative;
     display: block;
     overflow: hidden;
-    xborder: $default-color 1px solid;
     min-height: 170.2px;
   }
   .photo-detail {
@@ -198,7 +196,6 @@ body {
   margin: 10px auto 0;
 
   .tag {
-    xborder: 1px solid $default-color;
     border-radius: 1rem;
     cursor: pointer;
     padding: 5px;
@@ -318,13 +315,6 @@ body {
       display: block;
       margin: 10px auto;
       margin-top: 20px;
-    }
-  }
-
-  .search-bar {
-    .bar {
-      width: 80%;
-      width: calc(100% - 100px);
     }
   }
 }

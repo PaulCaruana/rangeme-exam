@@ -13,11 +13,11 @@ const ImageItem = props => {
 /*
         <div className="card">
             <div className="card-block">
-                <Link to={"/gallery/" + props.id} className="photo-title">
+                <Link to={"/view/" + props.id} className="photo-title">
                     <h6 className="card-title">{ props.item.title}</h6>
                 </Link>
             </div>
-            <Link to={"/gallery/" + props.id} className="photo-title">
+            <Link to={"/view/" + props.id} className="photo-title">
                 <img className="card-img-bottom card-img" src={props.item.media.m} alt="{props.item.title}" />
             </Link>
         </div>

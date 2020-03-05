@@ -9,7 +9,7 @@ const App = props => {
         <HashRouter>
             <div className="photo-flickr-app transition">
                 <Route exact path="/" component={SearchBar}/>
-                <Route path="/gallery/:id" component={View}/>
+                <Route path="/view/:id" component={View}/>
             </div>
         </HashRouter>
 
