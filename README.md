@@ -14,6 +14,8 @@ Also has the ability to view an image.
 - Tidy up search page using useFetch
 - Show when no records are found message
 - Redo UI with material-ui widgets
+- Keep state on view page after page re-load
+- Add search by tag from tags dropdown
  
 ## Prerequisites
 
