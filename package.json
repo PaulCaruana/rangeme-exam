@@ -8,6 +8,10 @@
     "type": "git",
     "url": "https://github.com/PaulCaruana/rangeme-exam.git"
   },
+  "engines": {
+    "npm": "6.13.4",
+    "node": "13.5.0"
+  },
   "homepage": "https://flickr-react.netlify.com/",
   "dependencies": {
     "fetch-jsonp": "latest",
@@ -17,6 +21,9 @@
     "react-hooks-global-state": "^1.0.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.4.0"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^14.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

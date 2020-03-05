@@ -1,7 +1,8 @@
-import { createGlobalState } from 'react-hooks-global-state';
+import { createGlobalState } from "react-hooks-global-state";
+
 const initialState = {
     searchTerm: "",
-    images: []
+    images: [],
 };
 const { useGlobalState } = createGlobalState(initialState);
 
