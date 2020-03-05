@@ -1,8 +1,9 @@
-# React Form Schema Generation
+# Flickr search application 
 
 ## Description
 
-Flickr search application
+Flickr search application which is search upon typing.
+Also has the ability to view an image.
  
 ## Todo
 
