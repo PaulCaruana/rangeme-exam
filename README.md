@@ -22,7 +22,7 @@ Please ensure that the latest version of NPM and NodeJs are installed
 yarn 
 ```
 
-## Run sample executions
+## Run application
 
 ```
 npm start
