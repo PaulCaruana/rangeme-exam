@@ -1,16 +1,15 @@
-import React, {useState, useEffect, useContext} from "react";
+import React from 'react';
 import {HashRouter, Route} from "react-router-dom";
+import SearchBar from "./components/SearchBar";
+import View from "./components/View";
 import "./App.scss";
-import Gallery from "./components/view";
-import SearchBar from "./components/searchBar";
-
 
 const App = props => {
     return (
         <HashRouter>
             <div className="photo-flickr-app transition">
                 <Route exact path="/" component={SearchBar}/>
-                <Route path="/gallery/:id" component={Gallery}/>
+                <Route path="/gallery/:id" component={View}/>
             </div>
         </HashRouter>
 

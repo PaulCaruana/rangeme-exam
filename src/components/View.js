@@ -1,6 +1,6 @@
 import React from "react";
-import BreadCrumbs from "./bread-crumbs";
-import Photo from "./photo";
+import BreadCrumbs from "./BreadCrumbs";
+import Photo from "./Photo";
 import useGlobalState from "../data/globalState";
 
 const View = props => {

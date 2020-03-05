@@ -1,6 +1,6 @@
 import React from "react";
 import "./ImageItem.css";
-import Photo from "./photo";
+import Photo from "./Photo";
 
 const ImageItem = props => {
     return (
