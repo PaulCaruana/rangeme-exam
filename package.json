@@ -15,7 +15,7 @@
   "homepage": "https://vast-mesa-72810.herokuapp.com/",
   "dependencies": {
     "fetch-jsonp": "latest",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-hooks-global-state": "^1.0.0",
